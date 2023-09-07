@@ -1,0 +1,8 @@
+- name: Install Grafana Agent
+  become: true
+  hosts: all
+  vars:
+    grafana_agent_variant: "flow"
+    grafana_agent_config_local_path: "{{ playbook_dir }}/files/config.river"
+  roles:
+    - grafana_agent

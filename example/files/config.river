@@ -1,0 +1,44 @@
+logging {
+  level  = "info"
+  format = "logfmt"
+}
+
+prometheus.exporter.unix {
+  set_collectors = [
+    "boottime",
+    "conntrack",
+    "cpu",
+    "cpufreq",
+    "diskstats",
+    "ethtool",
+    "filefd",
+    "filefd",
+    "filesystem",
+    "hwmon",
+    "lnstat",
+    "loadavg",
+    "meminfo",
+    "netdev",
+    "netstat",
+    "network_route",
+    "os",
+    "processes",
+    "stat",
+    "sysctl",
+    "systemd",
+    "time",
+    "uname",
+    "vmstat",
+  ]
+}
+
+prometheus.scrape "node" {
+  targets    = prometheus.exporter.unix.targets
+  forward_to = [prometheus.remote_write.mimir.receiver]
+}
+
+prometheus.remote_write "mimir" {
+  endpoint {
+    url = "https://mimir.example.com/api/v1/push"
+  }
+}
