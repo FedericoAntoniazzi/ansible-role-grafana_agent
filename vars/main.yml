@@ -1,0 +1,19 @@
+---
+_apt_keyring_dir: /etc/apt/keyrings
+
+# Public URL for the gpg key used for apt packages
+grafana_agent_apt_key_url: https://apt.grafana.com/gpg.key
+# Where to store the apt key
+grafana_agent_apt_key_path: "{{ _apt_keyring_dir }}/grafana.asc"
+# Apt repository url
+grafana_agent_apt_repo: https://apt.grafana.com
+
+# Name of the package to install
+grafana_agent_package_name: "{{ 'grafana-agent' if grafana_agent_variant == 'static' else 'grafana-agent-flow' }}"
+# Name of the systemd unit
+grafana_agent_service_name: "{{ 'grafana-agent' if grafana_agent_variant == 'static' else 'grafana-agent-flow' }}"
+
+_deb_architectures: {
+  "aarch64": "arm64",
+  "x86_64": "amd64"
+}

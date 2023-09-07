@@ -1,0 +1,5 @@
+---
+- name: Make sure variant name is ok
+  ansible.builtin.assert:
+    that: grafana_agent_variant in ['static', 'flow']
+    fail_msg: "Agent variant must be one of 'static' or 'flow'"

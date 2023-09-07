@@ -1,0 +1,10 @@
+---
+- name: Reload apt repositories
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: Restart grafana agent
+  when: grafana_agent_service_state in ["started", "restarted"]
+  ansible.builtin.service:
+    name: "{{ grafana_agent_service_name }}"
+    state: restarted

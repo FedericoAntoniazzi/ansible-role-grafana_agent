@@ -1,0 +1,18 @@
+---
+# Choose which variant of Grafana Agent to install
+# Allowed values: static, flow
+# Docs: https://grafana.com/docs/agent/latest/about/#choose-which-variant-of-grafana-agent-to-run
+grafana_agent_variant: "static"
+
+# Control whether the package has to be 'present', upgraded to 'latest' or 'absent'
+grafana_agent_state: latest
+
+# Start service
+grafana_agent_service_state: started
+# Enable service
+grafana_agent_service_enabled: true
+# Remote location of configuration file (TODO: In case of new path specified, edit the start parameters)
+grafana_agent_config_path: "{{ '/etc/grafana-agent.yaml' if grafana_agent_variant == 'static' else '/etc/grafana-agent-flow.river' }}"
+
+# Local location of configuration file
+grafana_agent_config_local_path: ""

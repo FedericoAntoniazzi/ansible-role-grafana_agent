@@ -1,0 +1,18 @@
+---
+- name: Make sure apt keyring dir exists
+  ansible.builtin.file:
+    path: "{{ _apt_keyring_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: Import Grafana's apt key
+  ansible.builtin.get_url:
+    url: "{{ grafana_agent_apt_key_url }}"
+    dest: "{{ grafana_agent_apt_key_path }}"
+    mode: 644
+
+- name: Add Grafana's apt repository
+  ansible.builtin.apt_repository:
+    repo: "deb [arch={{ _deb_architectures[ansible_architecture] }} signed-by={{ grafana_agent_apt_key_path }}] {{ grafana_agent_apt_repo }} stable main"
+    state: present
+  notify: "Reload apt repositories"

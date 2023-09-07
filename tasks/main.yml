@@ -1,0 +1,26 @@
+---
+- name: Preflight checks
+  ansible.builtin.include_tasks: preflight.yml
+
+- name: Setup hosts
+  ansible.builtin.include_tasks: "setup/{{ ansible_os_family }}.yml"
+
+- name: Copy config file
+  when: grafana_agent_config_local_path != ""
+  ansible.builtin.copy:
+    src: "{{ grafana_agent_config_local_path }}"
+    dest: "{{ grafana_agent_config_path }}"
+    mode: '0640'
+    remote_src: false
+  notify: "Restart grafana agent"
+
+- name: "Install Grafana Agent ({{ grafana_agent_variant }})"
+  ansible.builtin.package:
+    name: "{{ grafana_agent_package_name }}"
+    state: "{{ grafana_agent_state }}"
+
+- name: Ensure Grafana Agent is started and enabled at boot
+  ansible.builtin.service:
+    name: "{{ grafana_agent_service_name }}"
+    state: "{{ grafana_agent_service_state }}"
+    enabled: "{{ grafana_agent_service_enabled }}"

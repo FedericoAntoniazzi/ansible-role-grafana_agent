@@ -1,0 +1,30 @@
+galaxy_info:
+  role_name: grafana_agent
+  namespace: federicoantoniazzi
+  author: Federico Antoniazzi
+  description: Grafana Agent for Linux
+
+  license: MIT
+
+  min_ansible_version: "2.1"
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - focal
+        - jammy
+        # Comment to make ansible-lint happy
+        # - lunar
+
+  galaxy_tags:
+    - monitoring
+    - logging
+    - grafana
+    - agent
+    - prometheus
+    - mimir
+    - loki
+    - metrics
+    - logs
+
+dependencies: []
