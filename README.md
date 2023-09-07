@@ -1,6 +1,10 @@
-# Role Name
+# grafana_agent
 
 Install Grafana Agent on Linux.
+
+**What is Grafana Agent**:  
+Grafana Agent is a vendor-neutral, batteries-included telemetry collector developed by Grafana Labs.
+It is designed to be flexible, performant, and compatible with multiple ecosystems such as Prometheus and OpenTelemetry.
 
 ## Requirements
 
